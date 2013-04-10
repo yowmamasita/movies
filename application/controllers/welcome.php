@@ -47,6 +47,19 @@ class Welcome extends CI_Controller {
 		//var_dump($view_data);die();
 		$this->load->view('single_view', $view_data);
 	}
+	
+	public function browse()
+	{
+		$view_data['movies'] = $this->mongo_db
+		->order_by(array(
+			'imdbRating' => 'desc',
+			'imdbVotes' => 'desc',
+			'movieTitle' => 'asc'
+		))
+		->get('movies');
+		//var_dump($view_data);die();
+		$this->load->view('list_view', $view_data);
+	}
 }
 
 /* End of file welcome.php */

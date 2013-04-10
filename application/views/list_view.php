@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>WATCH YOUTUBE MOVIES</title>
+        <title>WATCH YOUTUBE MOVIES - Browse all movies</title>
         <meta name="description" content="watch full movies on youtube this site only serves as a directory">
         <meta name="viewport" content="width=device-width">
 
@@ -64,11 +64,9 @@
             <!-- Example row of columns -->
             <div class="row">
             	<?php foreach ($movies as $movie): ?>
-                <div class="span4">
-                    <h2><?=$movie['movieTitle']?></h2>
-                    <p><img class="poster" src="<?=$movie['moviePoster']?>"></p>
-                    <p><?=$movie['moviePlot']?></p>
-                    <p><a class="btn" href="/welcome/view/<?=$movie['imdbID']?>">View details &raquo;</a></p>
+                <div class="span12">
+                    <p><b><?=$movie['movieTitle']?></b> <?=$movie['moviePlot']?></p>
+                    <p><a href="/welcome/view/<?=$movie['imdbID']?>">View details &raquo;</a></p>
                 </div>
                 <?php endforeach; ?>
             </div>
