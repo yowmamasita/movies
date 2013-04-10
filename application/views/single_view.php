@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>WATCH YOUTUBE MOVIES</title>
+        <title>WATCH YOUTUBE MOVIES - <?=$movie[0]['movieTitle']?></title>
         <meta name="description" content="watch full movies on youtube this site only serves as a directory">
         <meta name="viewport" content="width=device-width">
 
@@ -62,14 +62,32 @@
 
             <!-- Example row of columns -->
             <div class="row">
-            	<?php foreach ($movies as $movie): ?>
-                <div class="span4">
-                    <h2><?=$movie['movieTitle']?></h2>
-                    <p><img class="poster" src="<?=$movie['moviePoster']?>"></p>
-                    <p><?=$movie['moviePlot']?></p>
-                    <p><a class="btn" href="/welcome/view/<?=$movie['imdbID']?>">View details &raquo;</a></p>
+            	<div class="span4">
+                    <p><img class="big-poster" src="<?=$movie[0]['moviePoster']?>"></p>
                 </div>
-                <?php endforeach; ?>
+                <div class="span4">
+                    <h2><?=$movie[0]['movieTitle']?></h2>
+                    <p><?=$movie[0]['moviePlot']?></p>
+                    <p>Rating: <?=$movie[0]['imdbRating']?></p>
+                    <p>Year: <?=$movie[0]['movieYear']?></p>
+                    <p>Rated: <?=$movie[0]['movieRated']?></p>
+                    <p>Released: <?=$movie[0]['movieReleased']?></p>
+                    <p>Runtime: <?=$movie[0]['movieRuntime']?></p>
+                    <p>Genre: <?=$movie[0]['movieGenre']?></p>
+                    <p>Director: <?=$movie[0]['movieDirector']?></p>
+                    <p>Writer: <?=$movie[0]['movieWriter']?></p>
+                    <p>Actors: <?=$movie[0]['movieActors']?></p>
+                    <p><a href="http://www.imdb.com/title/<?=$movie[0]['imdbID']?>/">IMDB page</a></p>
+                </div>
+                <div class="span4">
+	                <h3>Youtube Links</h3>
+					<?php
+					$x = 1;
+					foreach ($movie as $link):
+					?>
+                    <p><a href="<?=$link['youtubeUrl']?>">Watch link #<?=$x++?></a></p>
+                    <?php endforeach; ?>
+                </div>
             </div>
 
             <hr>

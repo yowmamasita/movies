@@ -17,9 +17,35 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	private $view_data;
+	
+	public function __construct()
+	{
+		parent::__construct();
+	}
+	
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$view_data['movies'] = $this->mongo_db
+		->where_gte('imdbRating', 8.0)
+		->order_by(array(
+			'_id' => 'desc'
+		))
+		->limit(3)
+		->get('movies');
+		//var_dump($view_data);die();
+		$this->load->view('welcome_message', $view_data);
+	}
+	
+	public function view($id)
+	{
+		$view_data['movie'] = $this->mongo_db
+		->where(array(
+			'imdbID' => $id
+		))
+		->get('movies');
+		//var_dump($view_data);die();
+		$this->load->view('single_view', $view_data);
 	}
 }
 
