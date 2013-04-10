@@ -52,9 +52,7 @@ class Welcome extends CI_Controller {
 	{
 		$view_data['movies'] = $this->mongo_db
 		->order_by(array(
-			'imdbRating' => 'desc',
-			'imdbVotes' => 'desc',
-			'movieTitle' => 'asc'
+			'imdbRating' => 'desc'
 		))
 		->get('movies');
 		//var_dump($view_data);die();
