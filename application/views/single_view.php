@@ -68,7 +68,7 @@
                 <div class="span4">
                     <h2><?=$movie[0]['movieTitle']?></h2>
                     <p><?=$movie[0]['moviePlot']?></p>
-                    <p>Rating: <?=$movie[0]['imdbRating']?></p>
+                    <p>Rating: <?=$movie[0]['imdbRating']?> (<?=$movie[0]['imdbVotes']?> votes)</p>
                     <p>Year: <?=$movie[0]['movieYear']?></p>
                     <p>Rated: <?=$movie[0]['movieRated']?></p>
                     <p>Released: <?=$movie[0]['movieReleased']?></p>
