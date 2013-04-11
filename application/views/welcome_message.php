@@ -65,7 +65,7 @@
             	<?php foreach ($movies as $movie): ?>
                 <div class="span4">
                     <h2><?=$movie['movieTitle']?></h2>
-                    <p><img class="poster" src="<?=$movie['moviePoster']?>"></p>
+                    <p><img class="poster" src="/static/img/posters/<?=$movie['imdbID']?>.jpg"></p>
                     <p><?=$movie['moviePlot']?></p>
                     <p><a class="btn" href="/welcome/view/<?=$movie['imdbID']?>">View details &raquo;</a></p>
                 </div>
