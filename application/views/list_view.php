@@ -62,19 +62,36 @@
 
             <!-- Example row of columns -->
             <div class="row">
+            	<div class="span12">
+            		<p class="well text-center">
+		        		<?php
+		        		foreach (range('A', 'Y') as $char) echo '<a href="#'.$char.'">'.$char.'</a> - ';
+		        		?>
+		        		<a href="#Z">Z</a>
+            		</p>
+            	</div>
+            	<div class="span12">
             	<?php
             	$before = '';
+            	$anchors = range('A', 'Z');
             	foreach ($movies as $movie):
+            		//check if unique
             		if ($movie['imdbID'] == $before)
             		{
             			continue;
             		}
             		$before = $movie['imdbID'];
+            		//check if first
+            		$first = 0;
+            		if (($loc = array_search(substr($movie['movieTitle'], 0, 1), $anchors)) !== false)
+            		{
+            			unset($anchors[$loc]);
+            			$first = 1;
+            		}
             	?>
-                <div class="span12">
-                    <p><a href="/welcome/view/<?=$movie['imdbID']?>"><?=$movie['movieTitle']?></a> (<?=$movie['movieYear']?>)</p>
-                </div>
+                    <p><a <?=$first?'name="'.substr($movie['movieTitle'], 0, 1).'" ':''?>href="/welcome/view/<?=$movie['imdbID']?>"><?=$movie['movieTitle']?></a> (<?=$movie['movieYear']?>)</p>
                 <?php endforeach; ?>
+                </div>
             </div>
 
             <hr>

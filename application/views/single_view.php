@@ -81,12 +81,9 @@
                 </div>
                 <div class="span4">
 	                <h3>Youtube Links</h3>
-					<?php
-					$x = 1;
-					foreach ($movie as $link):
-					?>
-                    <p><a href="<?=$link['youtubeUrl']?>">Watch link #<?=$x++?></a></p>
-                    <?php endforeach; ?>
+					<?php for ($x=1;$x<=count($movie);$x++): ?>
+                    <p><a href="#watchlink<?=$x?>" data-toggle="modal" data-backdrop="static">Watch link #<?=$x?></a></p>
+                    <?php endfor; ?>
                 </div>
             </div>
 
@@ -97,6 +94,26 @@
             </footer>
 
         </div> <!-- /container -->
+
+        <?php
+        //Youtube modals
+        $x = 1;
+        foreach ($movie as $link):
+        ?>
+        <div id="watchlink<?=$x?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="watchlink<?=$x?>Label" aria-hidden="true">
+            <div class="modal-header">
+                <span class="label label-info">Now watching</span>
+                <h3 id="watchlink<?=$x?>Label"><?=$movie[0]['movieTitle']?></h3>
+            </div>
+            <div class="modal-body">
+                <p><object width="560" height="315"><param name="movie" value="https://www.youtube-nocookie.com/v/<?=$link['youtubeId']?>?hl=en_US&amp;version=3&amp;rel=0&amp;showinfo=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="https://www.youtube-nocookie.com/v/<?=$link['youtubeId']?>?hl=en_US&amp;version=3&amp;rel=0&amp;showinfo=0" type="application/x-shockwave-flash" width="560" height="315" allowscriptaccess="always" allowfullscreen="true"></embed></object></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button class="btn btn-danger">Report</button>
+            </div>
+        </div>
+        <?php endforeach; ?>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script>window.jQuery || document.write('<script src="/static/js/vendor/jquery-1.9.1.js"><\/script>')</script>

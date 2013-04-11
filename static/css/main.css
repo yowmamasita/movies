@@ -1,9 +1,13 @@
-.poster
-{
+.poster {
 	max-height: 250px;
 }
 
-.big-poster
-{
+.big-poster {
 	max-height: 400px;
+}
+
+body .modal {
+    width: 590px;
+    left: 381px;
+    margin: auto auto auto auto;
 }
