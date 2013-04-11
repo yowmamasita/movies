@@ -100,7 +100,7 @@
         $x = 1;
         foreach ($movie as $link):
         ?>
-        <div id="watchlink<?=$x?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="watchlink<?=$x?>Label" aria-hidden="true">
+        <div id="watchlink<?=$x++?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="watchlink<?=$x?>Label" aria-hidden="true">
             <div class="modal-header">
                 <span class="label label-info">Now watching</span>
                 <h3 id="watchlink<?=$x?>Label"><?=$movie[0]['movieTitle']?></h3>
