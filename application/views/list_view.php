@@ -37,7 +37,6 @@
                     <a class="brand" href="/">WATCH YOUTUBE MOVIES</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
                             <li><a href="/welcome/browse">Browse</a></li>
                             <li><a href="#about">About</a></li>
                             <li><a href="#contact">Contact</a></li>
@@ -63,10 +62,17 @@
 
             <!-- Example row of columns -->
             <div class="row">
-            	<?php foreach ($movies as $movie): ?>
+            	<?php
+            	$before = '';
+            	foreach ($movies as $movie):
+            		if ($movie['imdbID'] == $before)
+            		{
+            			continue;
+            		}
+            		$before = $movie['imdbID'];
+            	?>
                 <div class="span12">
-                    <p><b><?=$movie['movieTitle']?></b> <?=$movie['moviePlot']?></p>
-                    <p><a href="/welcome/view/<?=$movie['imdbID']?>">View details &raquo;</a></p>
+                    <p><a href="/welcome/view/<?=$movie['imdbID']?>"><?=$movie['movieTitle']?></a> (<?=$movie['movieYear']?>)</p>
                 </div>
                 <?php endforeach; ?>
             </div>

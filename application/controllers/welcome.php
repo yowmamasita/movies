@@ -55,6 +55,7 @@ class Welcome extends CI_Controller {
 			'movieTitle' => 'asc'
 		))
 		->get('movies');
+		//->command(array("distinct" => "movies", "key" => "movieTitle"));
 		//var_dump($view_data);die();
 		$this->load->view('list_view', $view_data);
 	}
