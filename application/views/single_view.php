@@ -69,7 +69,7 @@
                 </div>
                 <?php endif; ?>
             	<div class="span4">
-                    <p><img class="big-poster" src="/static/img/posters/<?=$movie[0]['imdbID']?>.jpg"></p>
+                    <p><img class="big-poster" src="/static/img/posters/<?=file_exists(getcwd().'/static/img/posters/'.$movie[0]['imdbID'].'.jpg')?$movie[0].'.jpg':'no-poster.png'?>"></p>
                 </div>
                 <div class="span4">
                     <h2><?=$movie[0]['movieTitle']?></h2>

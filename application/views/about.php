@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="span12">
                     <h2>About Us</h2>
-                    <p>Something something blah blah freedom something</p>
+                    <p>Something something freedom something</p>
                     <p>PHP (front-end) --> MongoDB <-- Python (back-end)</p>
                     <p>Movie count: <?=$count?></p>
                     <p>Crawler: <?=$d_running?'<span class="label label-success">Running</span>':'<span class="label label-important">Stopped</span>'?></p>
