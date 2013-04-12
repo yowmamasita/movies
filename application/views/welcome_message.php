@@ -37,7 +37,7 @@
                     <a class="brand" href="/">WATCH YOUTUBE MOVIES</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li><a href="/welcome/browse">Browse</a></li>
+                            <li><a href="/movies/browse">Browse</a></li>
                             <li><a href="#about">About</a></li>
                             <li><a href="#contact">Contact</a></li>
                             <li class="dropdown">
@@ -67,7 +67,7 @@
                     <h2 class="text-center"><?=$movie['movieTitle']?></h2>
                     <p class="text-center"><img class="poster" src="/static/img/posters/<?=$movie['imdbID']?>.jpg"></p>
                     <p><?=$movie['moviePlot']?></p>
-                    <p><a class="btn" href="/welcome/view/<?=$movie['imdbID']?>">View details &raquo;</a></p>
+                    <p><a class="btn" href="/movies/view/<?=$movie['imdbID']?>">View details &raquo;</a></p>
                 </div>
                 <?php endforeach; ?>
             </div>

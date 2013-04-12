@@ -37,7 +37,7 @@
                     <a class="brand" href="/">WATCH YOUTUBE MOVIES</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li><a href="/welcome/browse">Browse</a></li>
+                            <li><a href="/movies/browse">Browse</a></li>
                             <li><a href="#about">About</a></li>
                             <li><a href="#contact">Contact</a></li>
                             <li class="dropdown">
@@ -89,7 +89,7 @@
             			$first = 1;
             		}
             	?>
-                    <p><a <?=$first?'name="'.substr($movie['movieTitle'], 0, 1).'" ':''?>href="/welcome/view/<?=$movie['imdbID']?>"><?=$movie['movieTitle']?></a> (<?=$movie['movieYear']?>)</p>
+                    <p><a <?=$first?'name="'.substr($movie['movieTitle'], 0, 1).'" ':''?>href="/movies/view/<?=$movie['imdbID']?>"><?=$movie['movieTitle']?></a> (<?=$movie['movieYear']?>)</p>
                 <?php endforeach; ?>
                 </div>
             </div>
