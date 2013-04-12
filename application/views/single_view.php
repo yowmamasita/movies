@@ -88,7 +88,7 @@
                 <div class="span4">
 	                <h3>Youtube Links</h3>
 					<?php for ($x=1;$x<=count($movie);$x++): ?>
-                    <p><a href="#watchlink<?=$x?>" data-toggle="modal" data-backdrop="static">Watch link #<?=$x?></a></p>
+                    <p><a href="#watchlink<?=$x?>" data-toggle="modal" data-backdrop="static" data-keyboard="false">Watch link #<?=$x?></a></p>
                     <?php endfor; ?>
                 </div>
             </div>
