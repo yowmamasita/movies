@@ -21,7 +21,16 @@
                     <p>Rated: <?=$movie[0]['movieRated']?></p>
                     <p>Released: <?=$movie[0]['movieReleased']?></p>
                     <p>Runtime: <?=$movie[0]['movieRuntime']?></p>
-                    <p>Genre: <?=$movie[0]['movieGenre']?></p>
+                    <p>Genre: 
+                    <?php
+                        $tok = strtok($movie[0]['movieGenre'], " ,");
+                        while ($tok !== false) {
+                            echo '<a href="/movies/browse/genre/'.$tok.'">'.$tok.'</a>';
+                            $tok = strtok(" ,");
+                            if ($tok !== false) echo ", ";
+                        }
+                    ?>
+                    </p>
                     <p>Director: <?=$movie[0]['movieDirector']?></p>
                     <p>Writer: <?=$movie[0]['movieWriter']?></p>
                     <p>Actors: <?=$movie[0]['movieActors']?></p>

@@ -39,7 +39,7 @@
                         <ul class="nav">
                             <li><a href="/movies/browse">Browse</a></li>
                             <li><a href="/misc/about">About</a></li>
-                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="/misc/contact">Contact</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                                 <ul class="dropdown-menu">

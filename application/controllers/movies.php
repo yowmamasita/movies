@@ -54,16 +54,42 @@ class Movies extends CI_Controller {
 		$this->load->view('single_view', $view_data);
 	}
 	
-	public function browse()
+	public function browse($mode = 'all', $params = '')
 	{
-		$view_data['movies'] = $this->mongo_db
-		->order_by(array(
-			'movieTitle' => 'asc'
-		))
-		->get('movies');
-		//->command(array("distinct" => "movies", "key" => "movieTitle"));
-		//var_dump($view_data);die();
-		$this->load->view('list_view', $view_data);
+		if ($mode == 'all')
+		{
+			$view_data['movies'] = $this->mongo_db
+			->order_by(array(
+				'movieTitle' => 'asc'
+			))
+			->get('movies');
+			//->command(array("distinct" => "movies", "key" => "movieTitle"));
+			//var_dump($view_data);die();
+			$this->load->view('list_view', $view_data);
+		}
+		elseif ($mode == 'genre')
+		{
+			$valid_genre = array("Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "Film-Noir", "Game-Show", "History", "Horror", "Music", "Musical", "Mystery", "News", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western");
+			if (in_array($params, $valid_genre))
+			{
+				$view_data['params'] = $params;
+				$view_data['movies'] = $this->mongo_db
+				->where(array(
+					'movieGenre' => array('$regex' => $params)
+				))
+				->order_by(array(
+					'movieTitle' => 'asc'
+				))
+				->get('movies');
+				//var_dump($view_data);die();
+				$this->load->view('list_view', $view_data);
+			}
+			else
+			{
+				$this->load->helper('url');
+				redirect(base_url("/movies/browse/all"));
+			}
+		}
 	}
 
 	public function report($youtubeId)

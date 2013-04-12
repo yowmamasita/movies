@@ -5,6 +5,7 @@
             <!-- Example row of columns -->
             <div class="row">
             	<div class="span12">
+                    <h2>List of all <?=isset($params)?"'".$params."' ":''?>movies</h2>
             		<p class="well text-center">
 		        		<?php
 		        		foreach (range('A', 'Y') as $char) echo '<a href="#'.$char.'">'.$char.'</a> - ';
