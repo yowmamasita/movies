@@ -45,6 +45,13 @@ class Movies extends CI_Controller {
 		))
 		->get('movies');
 
+		if (count($view_data['movie']) == 0)
+		{
+			$this->load->helper('url');
+			redirect(base_url());
+		}		
+
+
 		if ($reason = $this->input->get('notif'))
 		{
 			$view_data['notif'] = true;
