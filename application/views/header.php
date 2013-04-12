@@ -43,7 +43,7 @@
                                     <li><a href="/movies/browse/all/atoz">Alphabetical</a></li>
                                     <li><a href="/movies/browse/all/rating">Rating</a></li>
                                     <li><a href="/movies/browse/all/year">Year</a></li>
-                                    <li><a href="#">Genre</a></li>
+                                    <li><a href="/movies/browse/genre">Genre</a></li>
                                 </ul>
                             </li>
                             <li><a href="/misc/about">About</a></li>
