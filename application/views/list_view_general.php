@@ -5,9 +5,10 @@
             <!-- Example row of columns -->
             <div class="row">
             	<div class="span12">
-                    <h2><?=$genre?> movies</h2>
+                    <h2>All movies arranged by <?=$params?></h2>
             	<?php
             	$before = '';
+                $ratings = range(0, 9);
             	foreach ($movies as $movie):
             		//check if unique
             		if ($movie['imdbID'] == $before)
@@ -15,6 +16,15 @@
             			continue;
             		}
             		$before = $movie['imdbID'];
+                    if ($params == 'rating')
+                    {
+                        $rating = (int)$movie['imdbRating'];
+                        if (($loc = array_search($rating, $ratings)) !== false)
+                        {
+                            unset($ratings[$loc]);
+                            echo "<p><strong>Rating:</strong> $rating+</p>";
+                        }
+                    }
             	?>
                     <p><a href="/movies/view/<?=$movie['imdbID']?>"><?=$movie['movieTitle']?></a> (<?=$movie['movieYear']?>)</p>
                 <?php endforeach; ?>

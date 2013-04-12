@@ -54,18 +54,43 @@ class Movies extends CI_Controller {
 		$this->load->view('single_view', $view_data);
 	}
 	
-	public function browse($mode = 'all', $params = '')
+	public function browse($mode = 'all', $params = 'atoz')
 	{
 		if ($mode == 'all')
 		{
-			$view_data['movies'] = $this->mongo_db
-			->order_by(array(
-				'movieTitle' => 'asc'
-			))
-			->get('movies');
-			//->command(array("distinct" => "movies", "key" => "movieTitle"));
-			//var_dump($view_data);die();
-			$this->load->view('list_view', $view_data);
+			if ($params == 'atoz')
+			{
+				$view_data['movies'] = $this->mongo_db
+				->order_by(array(
+					'movieTitle' => 'asc'
+				))
+				->get('movies');
+				//->command(array("distinct" => "movies", "key" => "movieTitle"));
+				//var_dump($view_data);die();
+				$this->load->view('list_view', $view_data);
+			}
+			elseif ($params == 'rating')
+			{
+				$view_data['params'] = $params;
+				$view_data['movies'] = $this->mongo_db
+				->order_by(array(
+					'imdbRating' => 'desc'
+				))
+				->get('movies');
+				//var_dump($view_data);die();
+				$this->load->view('list_view_general', $view_data);
+			}
+			elseif ($params == 'year')
+			{
+				$view_data['params'] = $params;
+				$view_data['movies'] = $this->mongo_db
+				->order_by(array(
+					'movieYear' => 'desc'
+				))
+				->get('movies');
+				//var_dump($view_data);die();
+				$this->load->view('list_view_general', $view_data);
+			}
 		}
 		elseif ($mode == 'genre')
 		{
