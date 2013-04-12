@@ -62,6 +62,12 @@
 
             <!-- Example row of columns -->
             <div class="row">
+                <?php if(isset($notif)): ?>
+                <div class="span12 alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Thank you!</strong> We will look at your report as soon as possible.
+                </div>
+                <?php endif; ?>
             	<div class="span4">
                     <p><img class="big-poster" src="/static/img/posters/<?=$movie[0]['imdbID']?>.jpg"></p>
                 </div>
@@ -109,8 +115,8 @@
                 <p><object width="560" height="315"><param name="movie" value="https://www.youtube-nocookie.com/v/<?=$link['youtubeId']?>?hl=en_US&amp;version=3&amp;rel=0&amp;showinfo=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="https://www.youtube-nocookie.com/v/<?=$link['youtubeId']?>?hl=en_US&amp;version=3&amp;rel=0&amp;showinfo=0" type="application/x-shockwave-flash" width="560" height="315" allowscriptaccess="always" allowfullscreen="true"></embed></object></p>
             </div>
             <div class="modal-footer">
+                <a class="btn btn-danger" href="/movies/report/<?=$link['youtubeId']?>">Report</a>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <button class="btn btn-danger">Report</button>
             </div>
         </div>
         <?php endforeach; ?>

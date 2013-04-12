@@ -63,35 +63,34 @@
             <!-- Example row of columns -->
             <div class="row">
             	<div class="span12">
-            		<p class="well text-center">
-		        		<?php
-		        		foreach (range('A', 'Y') as $char) echo '<a href="#'.$char.'">'.$char.'</a> - ';
-		        		?>
-		        		<a href="#Z">Z</a>
-            		</p>
+                    <?php if(isset($notif)): ?>
+                    <div class="alert alert-error">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Nope!</strong> Try again.
+                    </div>
+                    <?php endif; ?>
+            		<h2><?=$movie[0]['movieTitle']?></h2>
+                    <p>Subject: <?=$movie[0]['youtubeId']?></p>
+                    <p><img src="http://img.youtube.com/vi/<?=$movie[0]['youtubeId']?>/1.jpg">&nbsp;<img src="http://img.youtube.com/vi/<?=$movie[0]['youtubeId']?>/2.jpg">&nbsp;<img src="http://img.youtube.com/vi/<?=$movie[0]['youtubeId']?>/3.jpg"></p>
+                    <form method="POST">
+                    <p>
+                        <label class="radio">
+                            <input type="radio" name="reportReason" id="reportReason1" value="diff_movie" checked>
+                            This video is for a different movie
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="reportReason" id="reportReason2" value="dead">
+                            This video is dead (or not working)
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="reportReason" id="reportReason2" value="incomplete">
+                            This video is incomplete
+                        </label>
+                    </p>
+                    <p><button class="btn btn-danger" type="submit">Submit report</button></p>
+                    <p>For other reasons, please use the Contact form</p>
+                    </form>
             	</div>
-            	<div class="span12">
-            	<?php
-            	$before = '';
-            	$anchors = range('A', 'Z');
-            	foreach ($movies as $movie):
-            		//check if unique
-            		if ($movie['imdbID'] == $before)
-            		{
-            			continue;
-            		}
-            		$before = $movie['imdbID'];
-            		//check if first
-            		$first = 0;
-            		if (($loc = array_search(substr($movie['movieTitle'], 0, 1), $anchors)) !== false)
-            		{
-            			unset($anchors[$loc]);
-            			$first = 1;
-            		}
-            	?>
-                    <p><a <?=$first?'name="'.substr($movie['movieTitle'], 0, 1).'" ':''?>href="/movies/view/<?=$movie['imdbID']?>"><?=$movie['movieTitle']?></a> (<?=$movie['movieYear']?>)</p>
-                <?php endforeach; ?>
-                </div>
             </div>
 
             <hr>

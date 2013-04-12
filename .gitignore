@@ -3,4 +3,4 @@
 */logs/!index.html
 */cache/*
 */cache/!index.html
-*/posters/*
+static/img/posters/*.jpg

@@ -27,7 +27,7 @@ class Movies extends CI_Controller {
 	public function index()
 	{
 		$view_data['movies'] = $this->mongo_db
-		->where_gte('imdbRating', 8.0)
+		->where_gte('imdbRating', 7.0)
 		->order_by(array(
 			'_id' => 'desc'
 		))
@@ -44,6 +44,12 @@ class Movies extends CI_Controller {
 			'imdbID' => $id
 		))
 		->get('movies');
+
+		if ($reason = $this->input->get('notif'))
+		{
+			$view_data['notif'] = true;
+		}
+
 		//var_dump($view_data);die();
 		$this->load->view('single_view', $view_data);
 	}
@@ -58,6 +64,33 @@ class Movies extends CI_Controller {
 		//->command(array("distinct" => "movies", "key" => "movieTitle"));
 		//var_dump($view_data);die();
 		$this->load->view('list_view', $view_data);
+	}
+
+	public function report($youtubeId)
+	{
+		$view_data['movie'] = $this->mongo_db
+		->where(array(
+			'youtubeId' => $youtubeId
+		))
+		->get('movies');
+
+		if ($reason = $this->input->post('reportReason'))
+		{
+			$this->load->helper('url');
+			$valid_reasons = array('diff_movie', 'deadd', 'incomplete');
+			if (in_array($reason, $valid_reasons))
+			{
+				$this->mongo_db->insert('reports', array('imdbId' => $view_data['movie'][0]['imdbID'], 'youtubeId' => $youtubeId, 'reason' => $reason));
+				redirect(base_url("/movies/view/".$view_data['movie'][0]['imdbID']."?notif=true"));
+			}
+			else
+			{
+				$view_data['notif'] = true;
+			}
+		}
+
+		//var_dump($view_data);die();
+		$this->load->view('report', $view_data);
 	}
 }
 
