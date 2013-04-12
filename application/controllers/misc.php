@@ -19,7 +19,7 @@ class Misc extends CI_Controller {
 	{
 		$view_data['count'] = $this->mongo_db
 		->count('movies');
-		exec("pgrep lighttpd", $pids);
+		exec("pgrep python", $pids);
 		if (empty($pids)) {
 			$view_data['d_running'] = false;
 		}
