@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>WATCH YOUTUBE MOVIES - About Us</title>
-        <meta name="description" content="watch full movies on youtube this site only serves as a directory">
+        <title>WATCH YOUTUBE MOVIES<?=isset($title)?" - ".$title:""?></title>
+        <meta name="description" content="Watch full movies on Youtube for free!">
         <meta name="viewport" content="width=device-width">
 
         <link rel="stylesheet" href="/static/css/bootstrap.css">
@@ -47,7 +47,7 @@
                                 </ul>
                             </li>
                             <li><a href="/misc/about">About</a></li>
-                            <li><a href="/misc/contact">Contact</a></li>
+                            <!--<li><a href="/misc/contact">Contact</a></li>-->
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>

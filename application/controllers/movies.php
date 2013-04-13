@@ -49,7 +49,9 @@ class Movies extends CI_Controller {
 		{
 			$this->load->helper('url');
 			redirect(base_url());
-		}		
+		}
+
+		$view_data['title'] = $view_data['movie'][0]['movieTitle'];
 
 
 		if ($reason = $this->input->get('notif'))
@@ -67,6 +69,7 @@ class Movies extends CI_Controller {
 		{
 			if ($params == 'atoz')
 			{
+				$view_data['title'] = "List of all movies";
 				$view_data['movies'] = $this->mongo_db
 				->order_by(array(
 					'movieTitle' => 'asc'
@@ -78,6 +81,7 @@ class Movies extends CI_Controller {
 			}
 			elseif ($params == 'rating')
 			{
+				$view_data['title'] = "List of all movies by rating";
 				$view_data['params'] = $params;
 				$view_data['movies'] = $this->mongo_db
 				->order_by(array(
@@ -89,6 +93,7 @@ class Movies extends CI_Controller {
 			}
 			elseif ($params == 'year')
 			{
+				$view_data['title'] = "List of all movies by year";
 				$view_data['params'] = $params;
 				$view_data['movies'] = $this->mongo_db
 				->order_by(array(
@@ -103,13 +108,15 @@ class Movies extends CI_Controller {
 		{
 			if ($params == 'atoz')
 			{
-				$this->load->view('genre_list');
+				$view_data['title'] = "List of all genres";
+				$this->load->view('genre_list', $view_data);
 			}
 			else
 			{
 				$valid_genre = array("Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "Film-Noir", "Game-Show", "History", "Horror", "Music", "Musical", "Mystery", "News", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western");
 				if (in_array($params, $valid_genre))
 				{
+					$view_data['title'] = "List of all ".$params." movies";
 					$view_data['params'] = $params;
 					$view_data['movies'] = $this->mongo_db
 					->where(array(
@@ -133,15 +140,21 @@ class Movies extends CI_Controller {
 
 	public function report($youtubeId)
 	{
+		$this->load->helper('url');
 		$view_data['movie'] = $this->mongo_db
 		->where(array(
 			'youtubeId' => $youtubeId
 		))
 		->get('movies');
 
+		if (count($view_data['movie']) == 0)
+		{
+			redirect(base_url());
+		}
+		$view_data['title'] = "Report a video";
+
 		if ($reason = $this->input->post('reportReason'))
 		{
-			$this->load->helper('url');
 			$valid_reasons = array('diff_movie', 'deadd', 'incomplete');
 			if (in_array($reason, $valid_reasons))
 			{
