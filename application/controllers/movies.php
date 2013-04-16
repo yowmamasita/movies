@@ -97,7 +97,8 @@ class Movies extends CI_Controller {
 				$view_data['params'] = $params;
 				$view_data['movies'] = $this->mongo_db
 				->order_by(array(
-					'movieYear' => 'desc'
+					'movieYear' => 'desc',
+					'movieTitle' => 'asc'
 				))
 				->get('movies');
 				//var_dump($view_data);die();
@@ -135,6 +136,14 @@ class Movies extends CI_Controller {
 					redirect(base_url("/movies/browse/all"));
 				}
 			}
+		}
+		elseif ($mode == 'random')
+		{
+			//
+		}
+		else
+		{
+			//
 		}
 	}
 
