@@ -85,7 +85,8 @@ class Movies extends CI_Controller {
 				$view_data['params'] = $params;
 				$view_data['movies'] = $this->mongo_db
 				->order_by(array(
-					'imdbRating' => 'desc'
+					'imdbRating' => 'desc',
+					'imdbVotes' => 'desc'
 				))
 				->get('movies');
 				//var_dump($view_data);die();
