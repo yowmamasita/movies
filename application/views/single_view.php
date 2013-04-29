@@ -36,10 +36,10 @@
                     <p>Actors: <?=$movie[0]['movieActors']?></p>
                     <?php if(isset($movie[0]['movieCountry'])) { ?><p>Country: 
                     <?php
-                        $tok = strtok($movie[0]['movieCountry'], " ,");
+                        $tok = strtok($movie[0]['movieCountry'], ",");
                         while ($tok !== false) {
-                            echo '<a href="/movies/browse/country/'.$tok.'">'.$tok.'</a>';
-                            $tok = strtok(" ,");
+                            echo '<a href="/movies/browse/country/'.trim($tok).'">'.trim($tok).'</a>';
+                            $tok = strtok(",");
                             if ($tok !== false) echo ", ";
                         }
                     ?>
