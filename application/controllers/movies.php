@@ -28,6 +28,7 @@ class Movies extends CI_Controller {
 	{
 		$view_data['movies'] = $this->mongo_db
 		->where_gte('imdbRating', 7.5)
+		->where_gte('imdbVotes', 1000)
 		#->where_gte('movieYear', 2000)
 		->where_ne('moviePoster', 'N/A')
 		->where_ne('moviePlot', 'N/A')
