@@ -38,7 +38,7 @@
                     <?php
                         $tok = strtok($movie[0]['movieCountry'], ",");
                         while ($tok !== false) {
-                            echo '<a href="/movies/browse/country/'.str_replace(" ", "+", trim($tok)).'">'.trim($tok).'</a>';
+                            echo '<a href="/movies/browse/country/'.str_replace(" ", "_", trim($tok)).'">'.trim($tok).'</a>';
                             $tok = strtok(",");
                             if ($tok !== false) echo ", ";
                         }
