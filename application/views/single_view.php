@@ -34,6 +34,16 @@
                     <p>Director: <?=$movie[0]['movieDirector']?></p>
                     <p>Writer: <?=$movie[0]['movieWriter']?></p>
                     <p>Actors: <?=$movie[0]['movieActors']?></p>
+                    <?php if(isset($movie[0]['movieCountry'])) { ?><p>Country: 
+                    <?php
+                        $tok = strtok($movie[0]['movieCountry'], " ,");
+                        while ($tok !== false) {
+                            echo '<a href="/movies/browse/country/'.$tok.'">'.$tok.'</a>';
+                            $tok = strtok(" ,");
+                            if ($tok !== false) echo ", ";
+                        }
+                    ?>
+                    </p><?php } ?>
                     <p><a href="http://www.imdb.com/title/<?=$movie[0]['imdbID']?>/">IMDB page</a></p>
                 </div>
                 <div class="span4">
