@@ -30,6 +30,7 @@ class Movies extends CI_Controller {
 		->where_gte('imdbRating', 7.0)
 		->where_gte('movieYear', 2000)
 		->where_ne('moviePoster', 'N/A')
+		->where_ne('moviePlot', 'N/A')
 		->order_by(array(
 			'_id' => 'desc'
 		))
