@@ -33,7 +33,7 @@ class Movies extends CI_Controller {
 		->order_by(array(
 			'_id' => 'desc'
 		))
-		->limit(3)
+		->limit(6)
 		->get('movies');
 		//var_dump($view_data);die();
 		$this->load->view('welcome_message', $view_data);
