@@ -76,7 +76,8 @@ class Movies extends CI_Controller {
                 $view_data['title'] = "List of all movies";
                 $view_data['movies'] = $this->mongo_db
                 ->order_by(array(
-                    'movieTitle' => 'asc'
+                    'movieTitle' => 'asc',
+                    'movieYear' => 'asc'
                 ))
                 ->get('movies');
                 //->command(array("distinct" => "movies", "key" => "movieTitle"));
@@ -129,7 +130,8 @@ class Movies extends CI_Controller {
                         'movieGenre' => array('$regex' => $params)
                     ))
                     ->order_by(array(
-                        'movieTitle' => 'asc'
+                        'movieTitle' => 'asc',
+                        'movieYear' => 'asc'
                     ))
                     ->get('movies');
                     //var_dump($view_data);die();
@@ -152,7 +154,8 @@ class Movies extends CI_Controller {
                 'movieCountry' => array('$regex' => $params)
             ))
             ->order_by(array(
-                'movieTitle' => 'asc'
+                'movieTitle' => 'asc',
+                'movieYear' => 'asc'
             ))
             ->get('movies');
             //var_dump($view_data);die();
