@@ -110,6 +110,20 @@ class Movies extends CI_Controller {
                 //var_dump($view_data);die();
                 $this->load->view('list_view_general', $view_data);
             }
+            elseif ($params == 'popularity')
+            {
+                $view_data['title'] = "List of all movies by popularity";
+                $view_data['params'] = $params;
+                $view_data['movies'] = $this->mongo_db
+                ->order_by(array(
+                    'imdbVotes' => 'desc',
+                    'imdbRating' => 'desc',
+                    'movieTitle' => 'asc'
+                ))
+                ->get('movies');
+                //var_dump($view_data);die();
+                $this->load->view('list_view_general', $view_data);
+            }
         }
         elseif ($mode == 'genre')
         {

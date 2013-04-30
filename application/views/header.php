@@ -41,6 +41,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/movies/browse/all/atoz">Alphabetical</a></li>
+                                    <li><a href="/movies/browse/all/popularity">Popularity</a></li>
                                     <li><a href="/movies/browse/all/rating">Rating</a></li>
                                     <li><a href="/movies/browse/all/year">Year</a></li>
                                     <li><a href="/movies/browse/genre">Genre</a></li>
