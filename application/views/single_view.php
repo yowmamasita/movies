@@ -33,7 +33,19 @@
                     </p>
                     <p>Director: <?=$movie[0]['movieDirector']?></p>
                     <p>Writer: <?=$movie[0]['movieWriter']?></p>
-                    <p>Actors: <?=$movie[0]['movieActors']?></p>
+                    <p>Actors: 
+                    <?php
+                        if($movie[0]['movieActors'] == 'N/A') {
+                            echo 'N/A';
+                        } else {
+                            $tok = strtok($movie[0]['movieActors'], ",");
+                            while ($tok !== false) {
+                                echo '<a href="/movies/browse/actor/'.str_replace(" ", "_", trim($tok)).'">'.trim($tok).'</a>';
+                                $tok = strtok(",");
+                                if ($tok !== false) echo ", ";
+                            }
+                        }
+                    ?></p>
                     <?php if(isset($movie[0]['movieCountry'])) { ?><p>Country: 
                     <?php
                         $tok = strtok($movie[0]['movieCountry'], ",");

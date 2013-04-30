@@ -161,6 +161,23 @@ class Movies extends CI_Controller {
             //var_dump($view_data);die();
             $this->load->view('list_view', $view_data);
         }
+        elseif ($mode == 'actor')
+        {
+            $params = str_replace("_", " ", trim($params));
+            $view_data['title'] = "List of all ".$params." movies";
+            $view_data['params'] = $params;
+            $view_data['movies'] = $this->mongo_db
+            ->where(array(
+                'movieActors' => array('$regex' => $params)
+            ))
+            ->order_by(array(
+                'movieTitle' => 'asc',
+                'movieYear' => 'asc'
+            ))
+            ->get('movies');
+            //var_dump($view_data);die();
+            $this->load->view('list_view', $view_data);
+        }
         elseif ($mode == 'random')
         {
             //
