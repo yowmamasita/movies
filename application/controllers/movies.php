@@ -163,7 +163,7 @@ class Movies extends CI_Controller {
         }
         elseif ($mode == 'actor')
         {
-            $params = str_replace("_", " ", trim($params));
+            $params = str_replace("_", " ", trim(urldecode($params)));
             $view_data['title'] = "List of all ".$params." movies";
             $view_data['params'] = $params;
             $view_data['movies'] = $this->mongo_db
