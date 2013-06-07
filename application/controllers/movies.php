@@ -93,6 +93,7 @@ class Movies extends CI_Controller {
                     'imdbRating' => 'desc',
                     'imdbVotes' => 'desc'
                 ))
+                ->where_gte('imdbVotes', 5000)
                 ->get('movies');
                 //var_dump($view_data);die();
                 $this->load->view('list_view_general', $view_data);
