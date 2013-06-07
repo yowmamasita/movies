@@ -86,7 +86,7 @@ class Movies extends CI_Controller {
             }
             elseif ($params == 'rating')
             {
-                $view_data['title'] = "List of all movies by rating";
+                $view_data['title'] = "List of all movies by rating (with votes > 5000)";
                 $view_data['params'] = $params;
                 $view_data['movies'] = $this->mongo_db
                 ->order_by(array(
@@ -94,6 +94,20 @@ class Movies extends CI_Controller {
                     'imdbVotes' => 'desc'
                 ))
                 ->where_gte('imdbVotes', 5000)
+                ->get('movies');
+                //var_dump($view_data);die();
+                $this->load->view('list_view_general', $view_data);
+            }
+            elseif ($params == 'unrated')
+            {
+                $view_data['title'] = "List of all movies by rating (with votes < 5000)";
+                $view_data['params'] = $params;
+                $view_data['movies'] = $this->mongo_db
+                ->order_by(array(
+                    'imdbRating' => 'desc',
+                    'imdbVotes' => 'desc'
+                ))
+                ->where_lte('imdbVotes', 5000)
                 ->get('movies');
                 //var_dump($view_data);die();
                 $this->load->view('list_view_general', $view_data);
