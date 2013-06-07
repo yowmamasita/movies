@@ -8,7 +8,7 @@
                     <h2>All movies arranged by <?=$params?></h2>
             	<?php
             	$before = '';
-                if ($params == 'rating') { $ratings = range(0, 9); }
+                if ($params == 'rating' || $params == 'unrated') { $ratings = range(0, 9); }
             	foreach ($movies as $movie):
             		//check if unique
             		if ($movie['imdbID'] == $before)
@@ -16,7 +16,7 @@
             			continue;
             		}
             		$before = $movie['imdbID'];
-                    if ($params == 'rating')
+                    if ($params == 'rating' || $params == 'unrated')
                     {
                         $rating = (int)$movie['imdbRating'];
                         if (($loc = array_search($rating, $ratings)) !== false)
