@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+//require "application/libraries/Builder.php"; use \MongoQB\Builder;
+
 class Movies extends CI_Controller {
 
     /**
@@ -26,19 +28,29 @@ class Movies extends CI_Controller {
     
     public function index()
     {
-        $view_data['movies'] = $this->mongo_db
-        ->where_gte('imdbRating', 7.5)
-        ->where_gte('imdbVotes', 1000)
-        #->where_gte('movieYear', 2000)
-        ->where_ne('moviePoster', 'N/A')
-        ->where_ne('moviePlot', 'N/A')
-        ->order_by(array(
-            '_id' => 'desc'
-        ))
-        ->limit(6)
-        ->get('movies');
-        //var_dump($view_data);die();
-        $this->load->view('welcome_message', $view_data);
+        echo "shit";
+        // $qb = \MongoQB\Builder(array(
+        //     'dsn'   =>  'mongodb://user:pass@localhost:27017/databaseName'
+        // );
+        // $results = $qb
+        //     ->whereGt('age', 21)
+        //     ->whereIn('likes', ['whisky'])
+        //     ->where('country', 'UK')
+        //     ->get('collectionName');
+        // print_r($results);
+        // $view_data['movies'] = $this->mongo_db
+        // ->where_gte('imdbRating', 7.5)
+        // ->where_gte('imdbVotes', 1000)
+        // #->where_gte('movieYear', 2000)
+        // ->where_ne('moviePoster', 'N/A')
+        // ->where_ne('moviePlot', 'N/A')
+        // ->order_by(array(
+        //     '_id' => 'desc'
+        // ))
+        // ->limit(6)
+        // ->get('movies');
+        // //var_dump($view_data);die();
+        // $this->load->view('welcome_message', $view_data);
     }
     
     public function view($id)
