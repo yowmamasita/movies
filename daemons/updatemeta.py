@@ -13,7 +13,7 @@ def get_imdb_params(movie_id):
     else:
         return json.loads(r.text)
 
-idlist = db.movies.find({'$or':[{'lastUpdated': {'$exists': False}}, {'lastUpdated': {'$lt': datetime.datetime.utcnow() - datetime.timedelta(days=14)}}]})
+idlist = db.movies.find({'$or':[{'lastUpdated': {'$exists': False}}, {'lastUpdated': {'$lt': datetime.datetime.utcnow() - datetime.timedelta(days=14)}}]}, timeout=False)
 finished = []
 for movie_data in idlist:
     if movie_data["imdbID"] in finished:
