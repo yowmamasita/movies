@@ -110,13 +110,14 @@ def db_insert(movie_data):
 	import requests
 	from PIL import Image
 	from StringIO import StringIO
+	import os
 	client = MongoClient()
 	db = client.fullmoviesonyoutube
 	if db.movies.find_one({"$or": [{"redditId": movie_data["redditId"]}, {"youtubeId": movie_data["youtubeId"]}]}) is None:
 		if "http://ia.media-imdb.com/images/" in movie_data["moviePoster"]:
 			ss = requests.get(movie_data["moviePoster"])
 			i = Image.open(StringIO(ss.content))
-			i.save('/var/www/movies/static/img/posters/' + movie_data["imdbID"] + '.jpg')
+			i.save(os.getcwd()+'/../static/img/posters/' + movie_data["imdbID"] + '.jpg')
 		return db.movies.insert(movie_data)
 	return
 
