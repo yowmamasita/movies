@@ -17,4 +17,12 @@ def get_imdb_params(movie_id):
 idlist = db.movies.distinct('imdbID')
 for movie_data in idlist:
     meta = get_imdb_params(movie_data.replace('tt', ''))
+    if meta is None:
+    	continue
+    if meta["Response"] == False:
+    	continue
+    if "N/A" in meta["imdbRating"]:
+		meta["imdbRating"] = '0'
+	if "N/A" in meta["imdbVotes"]:
+		meta["imdbVotes"] = '0'
     print db.movies.update({"imdbID": movie_data}, {"$set": {"imdbRating": float(meta["imdbRating"]), "imdbVotes": int(meta["imdbVotes"].replace(',', '')), "lastUpdate":datetime.datetime.utcnow()}}, upsert=False, multi=True)

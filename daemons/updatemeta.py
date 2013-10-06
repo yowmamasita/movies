@@ -13,8 +13,20 @@ def get_imdb_params(movie_id):
     else:
         return json.loads(r.text)
 
-#{'$or':[{'lastUpdated': {'$exists': False}}, {'lastUpdated': {'$lt': datetime.datetime.utcnow() + datetime.timedelta(days=14)}}]}
-idlist = db.movies.distinct('imdbID')
+idlist = db.movies.find({'$or':[{'lastUpdated': {'$exists': False}}, {'lastUpdated': {'$lt': datetime.datetime.utcnow() - datetime.timedelta(days=14)}}]})
+finished = []
 for movie_data in idlist:
-    meta = get_imdb_params(movie_data.replace('tt', ''))
-    print db.movies.update({"imdbID": movie_data}, {"$set": {"imdbRating": float(meta["imdbRating"]), "imdbVotes": int(meta["imdbVotes"].replace(',', '')), "lastUpdate":datetime.datetime.utcnow()}}, upsert=False, multi=True)
+    if movie_data["imdbID"] in finished:
+        continue
+    else:
+        finished.append(movie_data["imdbID"])
+        meta = get_imdb_params(movie_data["imdbID"].replace('tt', ''))
+        if meta is None:
+            continue
+        if meta["Response"] == False:
+            continue
+        if "N/A" in meta["imdbRating"]:
+            meta["imdbRating"] = '0'
+        if "N/A" in meta["imdbVotes"]:
+            meta["imdbVotes"] = '0'
+        print db.movies.update({"imdbID": movie_data["imdbID"]}, {"$set": {"imdbRating": float(meta["imdbRating"]), "imdbVotes": int(meta["imdbVotes"].replace(',', '')), "lastUpdate":datetime.datetime.utcnow()}}, upsert=False, multi=True)
