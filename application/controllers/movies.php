@@ -28,7 +28,6 @@ class Movies extends CI_Controller {
     
     public function index()
     {
-        echo "shit";
         // $qb = \MongoQB\Builder(array(
         //     'dsn'   =>  'mongodb://user:pass@localhost:27017/databaseName'
         // );
@@ -38,19 +37,19 @@ class Movies extends CI_Controller {
         //     ->where('country', 'UK')
         //     ->get('collectionName');
         // print_r($results);
-        // $view_data['movies'] = $this->mongo_db
-        // ->where_gte('imdbRating', 7.5)
-        // ->where_gte('imdbVotes', 1000)
-        // #->where_gte('movieYear', 2000)
-        // ->where_ne('moviePoster', 'N/A')
-        // ->where_ne('moviePlot', 'N/A')
-        // ->order_by(array(
-        //     '_id' => 'desc'
-        // ))
-        // ->limit(6)
-        // ->get('movies');
-        // //var_dump($view_data);die();
-        // $this->load->view('welcome_message', $view_data);
+        $view_data['movies'] = $this->mongo_db
+        ->where_gte('imdbRating', 7.5)
+        ->where_gte('imdbVotes', 1000)
+        #->where_gte('movieYear', 2000)
+        ->where_ne('moviePoster', 'N/A')
+        ->where_ne('moviePlot', 'N/A')
+        ->order_by(array(
+            '_id' => 'desc'
+        ))
+        ->limit(6)
+        ->get('movies');
+        //var_dump($view_data);die();
+        $this->load->view('welcome_message', $view_data);
     }
     
     public function view($id)

@@ -160,7 +160,13 @@ while 1:
 		if yt is None:
 			print "%s: Cant get youtube params of %s" % (datetime.now(timezone('Asia/Manila')).strftime("%Y-%m-%d %H:%M:%S"), x.title)
 			continue
-		imdb = get_imdb_url(x.title)
+		imdb = None; imdbcounter = 0
+		while imdb is None and imdbcounter < 3:
+			try:
+				imdb = get_imdb_url(x.title)
+			except:
+				imdbcounter += 1
+				imdb = None
 		if imdb is None:
 			print "%s: Cant get imdb url of %s" % (datetime.now(timezone('Asia/Manila')).strftime("%Y-%m-%d %H:%M:%S"), x.title)
 			time.sleep(2)
@@ -173,7 +179,13 @@ while 1:
 					break
 				else:
 					continue
-		imdbx = get_imdb_params(imdb[1])
+		imdbx = None; imdbcounter = 0
+		while imdbx is None and imdbcounter < 3:
+			try:
+				imdbx = get_imdb_params(imdb[1])
+			except:
+				imdbcounter += 1
+				imdbx = None
 		if imdbx is None:
 			print "%s: Cant get imdb params of %s" % (datetime.now(timezone('Asia/Manila')).strftime("%Y-%m-%d %H:%M:%S"), x.title)
 			continue
