@@ -40,15 +40,16 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/movies/browse/all/atoz">Alphabetical</a></li>
-                                    <li><a href="/movies/browse/all/popularity">Popularity</a></li>
-                                    <li><a href="/movies/browse/all/rating">Rating</a></li>
-                                    <li><a href="/movies/browse/all/year">Year</a></li>
-                                    <li><a href="/movies/browse/genre">Genre</a></li>
-                                    <li><a href="/movies/browse/all/unrated">Unrated</a></li>
+                                    <li><a href="/browse/all/atoz">Alphabetical</a></li>
+                                    <li><a href="/browse/all/popularity">Popularity</a></li>
+                                    <li><a href="/browse/all/rating">Rating</a></li>
+                                    <li><a href="/browse/all/year">Year</a></li>
+                                    <li><a href="/browse/genre">Genre</a></li>
+                                    <li><a href="/browse/all/unrated">Unrated</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/misc/about">About</a></li>
+                            <li><a href="/search">Search</a></li>
+                            <li><a href="/about">About</a></li>
                             <!--<li><a href="/misc/contact">Contact</a></li>-->
                         </ul>
                     </div><!--/.nav-collapse -->

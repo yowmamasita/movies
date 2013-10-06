@@ -180,7 +180,7 @@ class Movies extends CI_Controller {
                 else
                 {
                     $this->load->helper('url');
-                    redirect(base_url("/movies/browse/all"));
+                    redirect(base_url("/browse/all"));
                 }
             }
         }
@@ -249,7 +249,7 @@ class Movies extends CI_Controller {
             if (in_array($reason, $valid_reasons))
             {
                 $this->mongo_db->insert('reports', array('imdbId' => $view_data['movie'][0]['imdbID'], 'youtubeId' => $youtubeId, 'reason' => $reason));
-                redirect(base_url("/movies/view/".$view_data['movie'][0]['imdbID']."?notif=true"));
+                redirect(base_url("_".substr($view_data['movie'][0]['imdbID'], 2)."/".preg_replace('/[^A-Za-z0-9\- ]/', '', str_replace(' ','-',$view_data['movie'][0]['movieTitle']))."?notif=true"));
             }
             else
             {
@@ -259,6 +259,26 @@ class Movies extends CI_Controller {
 
         //var_dump($view_data);die();
         $this->load->view('report', $view_data);
+    }
+
+    public function search()
+    {
+        echo "fuck yu";
+    }
+
+    public function about()
+    {
+        $view_data['count'] = $this->mongo_db
+        ->count('movies');
+        exec("pgrep python", $pids);
+        if (empty($pids)) {
+            $view_data['d_running'] = false;
+        }
+        else {
+            $view_data['d_running'] = true;
+        }
+
+        $this->load->view('about', $view_data);
     }
 }
 

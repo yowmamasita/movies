@@ -41,6 +41,13 @@
 $route['default_controller'] = "movies";
 $route['404_override'] = '';
 
+$route['search'] = "movies/search";
+$route['about'] = "movies/about";
+
+$route['_(:num)/(:any)'] = "movies/view/tt$1";
+$route['browse/(:any)'] = "movies/browse/$1";
+$route['report/(:any)'] = "movies/report/$1";
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

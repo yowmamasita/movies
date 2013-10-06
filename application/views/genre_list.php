@@ -10,7 +10,7 @@
                 $genres = array("Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "Film-Noir", "Game-Show", "History", "Horror", "Music", "Musical", "Mystery", "News", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western");
             	foreach ($genres as $genre):
             	?>
-                    <p><a href="/movies/browse/genre/<?=$genre?>"><?=$genre?></a></p>
+                    <p><a href="/browse/genre/<?=$genre?>"><?=$genre?></a></p>
                 <?php endforeach; ?>
                 </div>
             </div>

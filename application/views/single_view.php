@@ -25,7 +25,7 @@
                     <?php
                         $tok = strtok($movie[0]['movieGenre'], " ,");
                         while ($tok !== false) {
-                            echo '<a href="/movies/browse/genre/'.$tok.'">'.$tok.'</a>';
+                            echo '<a href="/browse/genre/'.$tok.'">'.$tok.'</a>';
                             $tok = strtok(" ,");
                             if ($tok !== false) echo ", ";
                         }
@@ -40,7 +40,7 @@
                         } else {
                             $tok = strtok($movie[0]['movieActors'], ",");
                             while ($tok !== false) {
-                                echo '<a href="/movies/browse/actor/'.str_replace(" ", "_", trim($tok)).'">'.trim($tok).'</a>';
+                                echo '<a href="/browse/actor/'.str_replace(" ", "_", trim($tok)).'">'.trim($tok).'</a>';
                                 $tok = strtok(",");
                                 if ($tok !== false) echo ", ";
                             }
@@ -50,7 +50,7 @@
                     <?php
                         $tok = strtok($movie[0]['movieCountry'], ",");
                         while ($tok !== false) {
-                            echo '<a href="/movies/browse/country/'.str_replace(" ", "_", trim($tok)).'">'.trim($tok).'</a>';
+                            echo '<a href="/browse/country/'.str_replace(" ", "_", trim($tok)).'">'.trim($tok).'</a>';
                             $tok = strtok(",");
                             if ($tok !== false) echo ", ";
                         }
@@ -88,7 +88,7 @@
                 <p><object width="560" height="315"><param name="movie" value="https://www.youtube-nocookie.com/v/<?=$link['youtubeId']?>?hl=en_US&amp;version=3&amp;rel=0&amp;showinfo=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="https://www.youtube-nocookie.com/v/<?=$link['youtubeId']?>?hl=en_US&amp;version=3&amp;rel=0&amp;showinfo=0" type="application/x-shockwave-flash" width="560" height="315" allowscriptaccess="always" allowfullscreen="true"></embed></object></p>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-danger" href="/movies/report/<?=$link['youtubeId']?>">Report</a>
+                <a class="btn btn-danger" href="/report/<?=$link['youtubeId']?>">Report</a>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
             </div>
         </div>

@@ -32,7 +32,7 @@
             			$first = 1;
             		}
             	?>
-                    <p><a <?=$first?'name="'.substr($movie['movieTitle'], 0, 1).'" ':''?>href="/movies/view/<?=$movie['imdbID']?>"><?=$movie['movieTitle']?></a> (<?=$movie['movieYear']?>)</p>
+                    <p><a <?=$first?'name="'.substr($movie['movieTitle'], 0, 1).'" ':''?>href="/_<?=substr($movie['imdbID'], 2)?>/<?=preg_replace('/[^A-Za-z0-9\- ]/', '', str_replace(' ','-',$movie['movieTitle']))?>"><?=$movie['movieTitle']?></a> (<?=$movie['movieYear']?>)</p>
                 <?php endforeach; ?>
                 </div>
             </div>
