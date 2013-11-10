@@ -5,7 +5,8 @@
             <!-- Example row of columns -->
             <div class="row">
             	<div class="span12">
-                    <h2>All movies arranged by <?=$params?></h2>
+                    <h2><?=ucfirst($type)?> movies arranged by <?=$params?></h2>
+                    <p class="well text-center"><strong>Sort:</strong> <a href="#">Alphabetically</a>, <a href="#">by Rating</a>, <a href="#">by Year</a>, <a href="#">by Popularity</a>, <a href="#">Unrated</a></p>
             	<?php
             	$before = '';
                 if ($params == 'rating' || $params == 'unrated') { $ratings = range(0, 9); }

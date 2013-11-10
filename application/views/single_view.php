@@ -25,7 +25,7 @@
                     <?php
                         $tok = strtok($movie[0]['movieGenre'], " ,");
                         while ($tok !== false) {
-                            echo '<a href="/browse/genre/'.$tok.'">'.$tok.'</a>';
+                            echo '<a href="/browse/genre/'.strtolower($tok).'">'.$tok.'</a>';
                             $tok = strtok(" ,");
                             if ($tok !== false) echo ", ";
                         }

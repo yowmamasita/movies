@@ -77,155 +77,81 @@ class Movies extends CI_Controller {
         //var_dump($view_data);die();
         $this->load->view('single_view', $view_data);
     }
-    
-    public function browse($mode = 'all', $params = 'atoz')
+
+    public function browse($mode = 'all', $params = 'atoz', $sort = 'atoz')
     {
-        if ($mode == 'all')
+        $view_data['title'] = "List of ".$mode." movies";
+        $view_data['movies'] = $this->mongo_db;
+        if($mode == 'all')
         {
-            if ($params == 'atoz')
-            {
-                $view_data['title'] = "List of all movies";
-                $view_data['movies'] = $this->mongo_db
-                ->order_by(array(
-                    'movieTitle' => 'asc',
-                    'movieYear' => 'asc'
-                ))
-                ->get('movies');
-                //->command(array("distinct" => "movies", "key" => "movieTitle"));
-                //var_dump($view_data);die();
-                $this->load->view('list_view', $view_data);
-            }
-            elseif ($params == 'rating')
-            {
-                $view_data['title'] = "List of all movies by rating (with votes > 5000)";
-                $view_data['params'] = $params;
-                $view_data['movies'] = $this->mongo_db
-                ->order_by(array(
-                    'imdbRating' => 'desc',
-                    'imdbVotes' => 'desc'
-                ))
-                ->where_gte('imdbVotes', 5000)
-                ->get('movies');
-                //var_dump($view_data);die();
-                $this->load->view('list_view_general', $view_data);
-            }
-            elseif ($params == 'unrated')
-            {
-                $view_data['title'] = "List of all movies by rating (with votes < 5000)";
-                $view_data['params'] = $params;
-                $view_data['movies'] = $this->mongo_db
-                ->order_by(array(
-                    'imdbRating' => 'desc',
-                    'imdbVotes' => 'desc'
-                ))
-                ->where_lte('imdbVotes', 5000)
-                ->get('movies');
-                //var_dump($view_data);die();
-                $this->load->view('list_view_general', $view_data);
-            }
-            elseif ($params == 'year')
-            {
-                $view_data['title'] = "List of all movies by year";
-                $view_data['params'] = $params;
-                $view_data['movies'] = $this->mongo_db
-                ->order_by(array(
-                    'movieYear' => 'desc',
-                    'movieTitle' => 'asc'
-                ))
-                ->get('movies');
-                //var_dump($view_data);die();
-                $this->load->view('list_view_general', $view_data);
-            }
-            elseif ($params == 'popularity')
-            {
-                $view_data['title'] = "List of all movies by popularity";
-                $view_data['params'] = $params;
-                $view_data['movies'] = $this->mongo_db
-                ->order_by(array(
-                    'imdbVotes' => 'desc',
-                    'imdbRating' => 'desc',
-                    'movieTitle' => 'asc'
-                ))
-                ->get('movies');
-                //var_dump($view_data);die();
-                $this->load->view('list_view_general', $view_data);
-            }
+            $view_data['type'] = $mode;
+            $sort = $params;
         }
         elseif ($mode == 'genre')
         {
-            if ($params == 'atoz')
+            $valid_genre = array("action", "adventure", "animation", "biography", "comedy", "crime", "documentary", "drama", "family", "fantasy", "film-noir", "game-show", "history", "horror", "music", "musical", "mystery", "news", "reality-tv", "romance", "sci-fi", "sport", "talk-show", "thriller", "war", "western");
+            if (in_array($params, $valid_genre))
+            {
+                $view_data['type'] = $params;
+                $view_data['movies'] = $view_data['movies']->where(array('movieGenre' => array('$regex' => ucfirst($params))));
+            }
+            elseif ($params == 'atoz')
             {
                 $view_data['title'] = "List of all genres";
                 $this->load->view('genre_list', $view_data);
             }
             else
             {
-                $valid_genre = array("Action", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family", "Fantasy", "Film-Noir", "Game-Show", "History", "Horror", "Music", "Musical", "Mystery", "News", "Reality-TV", "Romance", "Sci-Fi", "Sport", "Talk-Show", "Thriller", "War", "Western");
-                if (in_array($params, $valid_genre))
-                {
-                    $view_data['title'] = "List of all ".$params." movies";
-                    $view_data['params'] = $params;
-                    $view_data['movies'] = $this->mongo_db
-                    ->where(array(
-                        'movieGenre' => array('$regex' => $params)
-                    ))
-                    ->order_by(array(
-                        'movieTitle' => 'asc',
-                        'movieYear' => 'asc'
-                    ))
-                    ->get('movies');
-                    //var_dump($view_data);die();
-                    $this->load->view('list_view', $view_data);
-                }
-                else
-                {
-                    $this->load->helper('url');
-                    redirect(base_url("/browse/all"));
-                }
+                //error
+                var_dump('error');
             }
         }
         elseif ($mode == 'country')
         {
             $params = str_replace("_", " ", trim($params));
-            $view_data['title'] = "List of all ".$params." movies";
-            $view_data['params'] = $params;
-            $view_data['movies'] = $this->mongo_db
-            ->where(array(
-                'movieCountry' => array('$regex' => $params)
-            ))
-            ->order_by(array(
-                'movieTitle' => 'asc',
-                'movieYear' => 'asc'
-            ))
-            ->get('movies');
-            //var_dump($view_data);die();
-            $this->load->view('list_view', $view_data);
+            $view_data['type'] = $params;
+            $view_data['movies'] = $view_data['movies']->where(array('movieCountry' => array('$regex' => $params)));
         }
         elseif ($mode == 'actor')
         {
             $params = str_replace("_", " ", trim(urldecode($params)));
-            $view_data['title'] = "List of all ".$params." movies";
-            $view_data['params'] = $params;
-            $view_data['movies'] = $this->mongo_db
-            ->where(array(
-                'movieActors' => array('$regex' => $params)
-            ))
-            ->order_by(array(
-                'movieTitle' => 'asc',
-                'movieYear' => 'asc'
-            ))
-            ->get('movies');
-            //var_dump($view_data);die();
-            $this->load->view('list_view', $view_data);
-        }
-        elseif ($mode == 'random')
-        {
-            //
+            $view_data['type'] = $params;
+            $view_data['movies'] = $view_data['movies']->where(array('movieActors' => array('$regex' => $params)));
         }
         else
         {
-            //
+            //error
+            var_dump('error');
+            //$this->load->helper('url');
+            //redirect(base_url("/browse/all"));
         }
+        switch ($sort) {
+            case 'rating':
+                $view_data['movies'] = $view_data['movies']->order_by(array('imdbRating' => 'desc', 'imdbVotes' => 'desc'))->where_gte('imdbVotes', 5000);
+                $view_type = 'list_view_general';
+                break;
+            case 'year':
+                $view_data['movies'] = $view_data['movies']->order_by(array('movieYear' => 'desc', 'movieTitle' => 'asc'));
+                $view_type = 'list_view_general';
+                break;
+            case 'popularity':
+                $view_data['movies'] = $view_data['movies']->order_by(array('imdbVotes' => 'desc', 'imdbRating' => 'desc', 'movieTitle' => 'asc'));
+                $view_type = 'list_view_general';
+                break;
+            case 'unrated':
+                $view_data['movies'] = $view_data['movies']->order_by(array('imdbRating' => 'desc', 'imdbVotes' => 'desc'))->where_lte('imdbVotes', 5000);
+                $view_type = 'list_view_general';
+                break;
+            default:
+                $view_type = 'list_view';
+                $view_data['movies'] = $view_data['movies']->order_by(array('movieTitle' => 'asc', 'movieYear' => 'asc'));
+        }
+        if ($sort != 'atoz')
+        {
+            $view_data['params'] = $sort;
+        }
+        $view_data['movies'] = $view_data['movies']->get('movies');
+        $this->load->view($view_type, $view_data);
     }
 
     public function report($youtubeId)
