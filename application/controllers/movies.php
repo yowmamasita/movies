@@ -82,6 +82,7 @@ class Movies extends CI_Controller {
     {
         $view_data['title'] = "List of ".$mode." movies";
         $view_data['movies'] = $this->mongo_db;
+        $view_data['url'] = array($mode, $params, $sort);
         if($mode == 'all')
         {
             $view_data['type'] = $mode;

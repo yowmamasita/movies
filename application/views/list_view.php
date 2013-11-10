@@ -6,7 +6,18 @@
             <div class="row">
             	<div class="span12">
                     <h2>List of <?=ucfirst($type)?> <?=isset($params)?"'".$params."' ":''?>movies</h2>
-                    <p class="well text-center"><strong>Sort:</strong> <a href="#">Alphabetically</a>, <a href="#">by Rating</a>, <a href="#">by Year</a>, <a href="#">by Popularity</a>, <a href="#">Unrated</a></p>
+                    <?php
+                    $red = '/browse/';
+                    if ($url[0] == 'all')
+                    {
+                        $red .= $url[0].'/';
+                    }
+                    else
+                    {
+                        $red .= $url[0].'/'.$url[1].'/';                        
+                    }
+                    ?>
+                    <p class="well text-center"><strong>Sort:</strong> <a href="<?=$red?>atoz">Alphabetically</a>, <a href="<?=$red?>rating">by Rating</a>, <a href="<?=$red?>year">by Year</a>, <a href="<?=$red?>popularity">by Popularity</a>, <a href="<?=$red?>unrated">Unrated</a></p>
             		<p class="well text-center">
 		        		<?php
 		        		foreach (range('A', 'Y') as $char) echo '<a href="#'.$char.'">'.$char.'</a> - ';
