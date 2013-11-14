@@ -1,7 +1,7 @@
 <?php $this->load->view('header'); ?>
 
         <div class="container">
-
+            <h1 class="text-center">Today's Picks</h1>
             <!-- Example row of columns -->
         	<?php
             $i = 0; $flag = 0;

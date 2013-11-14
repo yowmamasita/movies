@@ -1,57 +1,59 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-//require "application/libraries/Builder.php"; use \MongoQB\Builder;
-
 class Movies extends CI_Controller {
 
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     *         http://example.com/index.php/movies
-     *    - or -  
-     *         http://example.com/index.php/movies/index
-     *    - or -
-     * Since this controller is set as the default controller in 
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/movies/<method_name>
-     * @see http://codeigniter.com/user_guide/general/urls.html
-     */
     private $view_data;
-    
+    protected $mongodb;
+
     public function __construct()
     {
         parent::__construct();
+        # mongodb
+        $m = new MongoClient();
+        $db = $m->fullmoviesonyoutube;
+        // $this->mongodb = $db->movies;
+        // $m = new Mongo;
+        // $this->mongodb = $m->selectDB("fullmoviesonyoutube")->selectCollection("movies");
+        $this->mongodb = new MongoCollection($db, 'movies');
     }
-    
+
     public function index()
     {
-        // $qb = \MongoQB\Builder(array(
-        //     'dsn'   =>  'mongodb://user:pass@localhost:27017/databaseName'
-        // );
-        // $results = $qb
-        //     ->whereGt('age', 21)
-        //     ->whereIn('likes', ['whisky'])
-        //     ->where('country', 'UK')
-        //     ->get('collectionName');
-        // print_r($results);
-        $view_data['movies'] = $this->mongo_db
-        ->where_gte('imdbRating', 7.5)
-        ->where_gte('imdbVotes', 1000)
-        #->where_gte('movieYear', 2000)
-        ->where_ne('moviePoster', 'N/A')
-        ->where_ne('moviePlot', 'N/A')
-        ->order_by(array(
-            '_id' => 'desc'
-        ))
-        ->limit(6)
-        ->get('movies');
-        //var_dump($view_data);die();
+        $frontpage_q = array(
+            'imdbRating' => array('$gt' => 6.5),
+            'imdbVotes' => array('$gt' => 10000),
+            'moviePoster' => array('$ne' => 'N/A'),
+            'moviePlot' => array('$ne' => 'N/A'),
+            );
+        $order = array('_id' => -1);
+        $view_data['movies'] = $this->mongodb
+             ->aggregate(
+                array('$match' => $frontpage_q),
+                array('$sort' => $order),
+                array('$limit' => 50),
+                array('$group' => [
+                    '_id' => '$imdbID',
+                    'imdbID' => ['$first' => '$imdbID'],
+                    'movieTitle' => ['$first' => '$movieTitle'],
+                    'moviePlot' => ['$first' => '$moviePlot'],
+                    'imdbRating' => ['$first' => '$imdbRating'],
+                    'imdbVotes' => ['$first' => '$imdbVotes'],
+                    'movieYear' => ['$first' => '$movieYear'],
+                    'movieRated' => ['$first' => '$movieRated'],
+                    'movieReleased' => ['$first' => '$movieReleased'],
+                    'movieRuntime' => ['$first' => '$movieRuntime'],
+                    'movieGenre' => ['$first' => '$movieGenre'],
+                    'movieDirector' => ['$first' => '$movieDirector'],
+                    'movieWriter' => ['$first' => '$movieWriter'],
+                    'movieActors' => ['$first' => '$movieActors'],
+                    'movieCountry' => ['$first' => '$movieCountry']
+                    ]),
+                array('$limit' => 6)
+
+             )['result'];
         $this->load->view('welcome_message', $view_data);
     }
-    
+
     public function view($id)
     {
         $view_data['movie'] = $this->mongo_db
